@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Report Lost Item</title>
+  <title>Lost & Found</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="website icon" type="png" href="Logo2.png" />
 </head>
 <body>
   <div id="tsparticles"></div>
@@ -40,7 +41,6 @@
   </div>
 
   <!-- Particles + Login Check -->
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
   <script>
     function checkLogin(e) {
       const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -52,13 +52,31 @@
       }
       return true;
     }
-    document.addEventListener('DOMContentLoaded', () => tsParticles.load("tsparticles", { background:{color:"#0d0d2b"}, particles:{number:{value:80}} }));
+    
   </script>
   <form onsubmit="return checkLogin(event)">
   <!-- form fields -->
-  <button type="submit" class="btn btn-found">Submit Found Report</button>
 </form>
 
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      tsParticles.load("tsparticles", {
+        background: { color: "#0d0d2b" },
+        fpsLimit: 60,
+        particles: {
+          number: { value: 80 },
+          color: { value: ["#ffffff", "#FFA726", "#009688"] },
+          links: { enable: true, distance: 140, color: "#fff", opacity: 0.25 },
+          move: { enable: true, speed: 1 },
+          size: { value: { min: 2, max: 4 } },
+          opacity: { value: 0.6 }
+        },
+        interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
+        detectRetina: true
+      });
+    });
+  </script>
 <script>
   function checkLogin(e) {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report Found Item</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="tsparticles"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="brand">LOFD</div>
+    <div class="nav-right">
+      <button class="btn btn-browse" onclick="location.href='index.html'">Home</button>
+      <button class="btn btn-lost" onclick="location.href='report-lost.html'">Report Lost</button>
+      <button class="btn btn-found" onclick="location.href='report-found.html'">Report Found</button>
+      <button class="btn btn-browse" onclick="location.href='list.html'">Browse</button>
+      <button class="btn btn-browse" onclick="location.href='login.html'">Login/Register</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Report Found Item</h2>
+    <form onsubmit="return checkLogin(event)">
+      <label>Item Name</label>
+      <input type="text" placeholder="e.g., Backpack" required>
+
+      <label>Description</label>
+      <textarea rows="3" placeholder="Describe the found item"></textarea>
+
+      <label>Location</label>
+      <input type="text" placeholder="Where did you find it?" required>
+
+      <label>Contact</label>
+      <input type="text" placeholder="Your phone/email" required>
+
+      <button type="submit" class="btn btn-found">Submit Found Report</button>
+    </form>
+  </div>
+
+  <!-- Particles + Login Check -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+  <script>
+    function checkLogin(e) {
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (!isLoggedIn) {
+        e.preventDefault();
+        alert("You must login before submitting a report.");
+        window.location.href = "login.html";
+        return false;
+      }
+      return true;
+    }
+    document.addEventListener('DOMContentLoaded', () => tsParticles.load("tsparticles", { background:{color:"#0d0d2b"}, particles:{number:{value:80}} }));
+  </script>
+  <form onsubmit="return checkLogin(event)">
+  <!-- form fields -->
+  <button type="submit" class="btn btn-found">Submit Found Report</button>
+</form>
+
+<script>
+  function checkLogin(e) {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (!isLoggedIn) {
+      e.preventDefault();
+      alert("You must login before submitting a report.");
+      window.location.href = "login.html";
+      return false;
+    }
+    return true;
+  }
+</script>
+
+</body>
+</html>

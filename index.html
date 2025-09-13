@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lost & Found</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="tsparticles"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="brand">LOFD</div>
+    <div class="nav-right">
+      <button class="btn btn-browse" onclick="location.href='index.html'">Home</button>
+      <button class="btn btn-lost" onclick="location.href='report-lost.html'">Report Lost</button>
+      <button class="btn btn-found" onclick="location.href='report-found.html'">Report Found</button>
+      <button class="btn btn-browse" onclick="location.href='list.html'">Browse</button>
+      <button class="btn btn-browse" onclick="location.href='login.html'">Login/Register</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Find what matters. Help your community.</h2>
+    <p>Quickly report lost or found items.</p>
+
+    <div class="card lost">
+      <h3>Lost: Wallet</h3>
+      <p>Brown leather wallet, lost near Central Park.</p>
+    </div>
+
+    <div class="card found">
+      <h3>Found: Backpack</h3>
+      <p>Black Adidas backpack found at bus stop #45.</p>
+    </div>
+  </div>
+
+  <!-- Particle Background -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      tsParticles.load("tsparticles", {
+        background: { color: "#0d0d2b" },
+        fpsLimit: 60,
+        particles: {
+          number: { value: 80 },
+          color: { value: ["#ffffff", "#FFA726", "#009688"] },
+          links: { enable: true, distance: 140, color: "#fff", opacity: 0.25 },
+          move: { enable: true, speed: 1 },
+          size: { value: { min: 2, max: 4 } },
+          opacity: { value: 0.6 }
+        },
+        interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
+        detectRetina: true
+      });
+    });
+  </script>
+</body>
+</html>

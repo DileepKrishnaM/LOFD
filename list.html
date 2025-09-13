@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Lost & Found Items</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="tsparticles"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="brand">LOFD</div>
+    <div class="nav-right">
+      <button class="btn btn-browse" onclick="location.href='index.html'">Home</button>
+      <button class="btn btn-lost" onclick="location.href='report-lost.html'">Report Lost</button>
+      <button class="btn btn-found" onclick="location.href='report-found.html'">Report Found</button>
+      <button class="btn btn-browse" onclick="location.href='list.html'">Browse</button>
+      <button class="btn btn-browse" onclick="location.href='login.html'">Login/Register</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>All Reports</h2>
+    <div class="card lost"><h3>Lost: Keys</h3><p>Set of car keys lost near Main Street Market.</p></div>
+    <div class="card found"><h3>Found: Phone</h3><p>iPhone 12 found in library study area.</p></div>
+    <div class="card lost"><h3>Lost: Dog</h3><p>Golden retriever missing since yesterday near Elm Street.</p></div>
+    <div class="card found"><h3>Found: Umbrella</h3><p>Blue umbrella left on bus #22.</p></div>
+  </div>
+
+  <!-- Particles -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      tsParticles.load("tsparticles", {
+        background: { color: "#0d0d2b" },
+        fpsLimit: 60,
+        particles: { number: { value: 80 }, color: { value: ["#fff","#FFA726","#009688"] }, links: { enable:true, color:"#fff" } }
+      });
+    });
+  </script>
+</body>
+</html>

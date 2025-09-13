@@ -28,12 +28,20 @@ body {
 
 /* Navbar */
 .navbar {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.255);
   padding: 1rem 2rem;
   text-align: center;
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+.brand img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
 .navbar h1 {
   font-size: 1.8rem;
   font-weight: bold;
@@ -54,9 +62,10 @@ body {
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
+
 .btn-lost {
-  background: #FFA726;
-  color: black;
+  background: #444;
+  color: white;
 }
 
 .btn-lost:hover {
@@ -65,7 +74,7 @@ body {
 }
 
 .btn-found {
-  background: #009688;
+  background: #444;
   color: white;
 }
 
@@ -80,9 +89,10 @@ body {
 }
 
 .btn-browse:hover {
-  background: #666;
+  background: white;
+  color: #444;
   transform: scale(1.05);
-}
+} 
 
 /* Container */
 .container {

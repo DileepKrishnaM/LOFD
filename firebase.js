@@ -130,43 +130,75 @@ export const getUserInfo = async (uid) => {
   }
 };
 
-// // Recipe functions
-// export const getAllRecipes = async () => {
-//   try {
-//     const querySnapshot = await getDocs(collection(db, "recipes"));
-//     const recipes = querySnapshot.docs.map(doc => ({
-//       id: doc.id,
-//       ...doc.data()
-//     }));
-//     return { success: true, data: recipes };
-//   } catch (error) {
-//     return { success: false, error: error.message };
-//   }
-// };
+// Lost Items functions
+export const addLostItem = async (lostItemData) => {
+  try {
+    const user = auth.currentUser;
+    if (!user) {
+      return { success: false, error: "User not authenticated" };
+    }
 
-// export const getRecipeById = async (recipeId) => {
-//   try {
-//     const docRef = doc(db, "recipes", recipeId);
-//     const docSnap = await getDoc(docRef);
+    // Add additional metadata
+    const itemWithMetadata = {
+      ...lostItemData,
+      userId: user.uid,
+      userEmail: user.email,
+      status: 'lost',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    const docRef = await addDoc(collection(db, "lostItems"), itemWithMetadata);
+    return { success: true, id: docRef.id };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
+
+export const getAllLostItems = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "lostItems"));
+    const lostItems = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    return { success: true, data: lostItems };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
+
+export const getLostItemById = async (itemId) => {
+  try {
+    const docRef = doc(db, "lostItems", itemId);
+    const docSnap = await getDoc(docRef);
     
-//     if (docSnap.exists()) {
-//       return { success: true, data: { id: docSnap.id, ...docSnap.data() } };
-//     } else {
-//       return { success: false, error: "Recipe not found" };
-//     }
-//   } catch (error) {
-//     return { success: false, error: error.message };
-//   }
-// };
+    if (docSnap.exists()) {
+      return { success: true, data: { id: docSnap.id, ...docSnap.data() } };
+    } else {
+      return { success: false, error: "Lost item not found" };
+    }
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
 
-// export const addRecipe = async (recipeData) => {
-//   try {
-//     const docRef = await addDoc(collection(db, "recipes"), recipeData);
-//     return { success: true, id: docRef.id };
-//   } catch (error) {
-//     return { success: false, error: error.message };
-//   }
-// };
+export const getUserLostItems = async (userId) => {
+  try {
+    const userItemsQuery = query(
+      collection(db, "lostItems"), 
+      where("userId", "==", userId)
+    );
+    const querySnapshot = await getDocs(userItemsQuery);
+    const userItems = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    return { success: true, data: userItems };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
 
 export default { 
   auth, 
@@ -176,9 +208,10 @@ export default {
   logoutUser, 
   getCurrentUser, 
   getUserInfo,
-//   getAllRecipes,
-//   getRecipeById,
-//   addRecipe,
+  addLostItem,
+  getAllLostItems,
+  getLostItemById,
+  getUserLostItems,
   resendVerificationEmail,
   sendPasswordResetEmail
 };

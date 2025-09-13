@@ -1,53 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Lost & Found</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="website icon" type="png" href="Logo2.png" />
+    <meta charset="UTF-8">
+    <title>Browse Lost Items - Lost & Found</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="website icon" type="png" href="./Logo2.png" />
+    <style>
+        .items-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .item-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .item-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: #FFA726;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            position: relative;
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item-image.error {
+            background: linear-gradient(45deg, #ff7b7b 0%, #667eea 100%);
+        }
+
+        .item-content {
+            padding: 20px;
+        }
+
+        .item-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 8px;
+            text-transform: capitalize;
+        }
+
+        .item-location {
+            color: #FFA726;
+            font-size: 1em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .item-category {
+            background: rgba(255, 167, 38, 0.2);
+            color: #FFA726;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .item-date {
+            color: #aaa;
+            font-size: 0.85em;
+            margin-bottom: 15px;
+        }
+
+        .view-btn {
+            background: linear-gradient(45deg, #FFA726, #FF7043);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .view-btn:hover {
+            background: linear-gradient(45deg, #FF7043, #FFA726);
+            transform: scale(1.05);
+        }
+
+        .loading {
+            text-align: center;
+            color: #fff;
+            padding: 40px;
+            font-size: 1.2em;
+        }
+
+        .error-message {
+            text-align: center;
+            color: #ff7b7b;
+            padding: 40px;
+            font-size: 1.2em;
+            background: rgba(255, 123, 123, 0.1);
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        .no-items {
+            text-align: center;
+            color: #aaa;
+            padding: 60px 20px;
+            font-size: 1.3em;
+        }
+
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .search-input::placeholder {
+            color: #aaa;
+        }
+
+        .filter-select {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .filter-select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        .page-title {
+            text-align: center;
+            color: #fff;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: #FFA726;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .location-icon::before {
+            content: "📍";
+            margin-right: 5px;
+        }
+    </style>
 </head>
+
 <body>
-  <div id="tsparticles"></div>
+    <div id="tsparticles"></div>
 
-  <!-- Navbar -->
-  <header class="navbar">
-    <a href="index.html"><div class="brand"><img src="./Logo1.png" alt=""></div></a>
-    <div class="nav-right">
-      <button class="btn btn-browse" onclick="location.href='index.html'">Home</button>
-      <button class="btn btn-lost" onclick="location.href='report-lost.html'">Report Lost</button>
-      <button class="btn btn-found" onclick="location.href='report-found.html'">Report Found</button>
-      <button class="btn btn-browse" onclick="location.href='list.html'">Browse</button>
-      <button class="btn btn-browse" onclick="location.href='login.html'">Login/Register</button>
+    <header class="navbar">
+        <a href="index.html">
+            <div class="brand"><img src="./Logo1.png" alt=""></div>
+        </a>
+        <div class="nav-right">
+            <button class="btn btn-browse" onclick="location.href='index.html'">Home</button>
+            <button class="btn btn-lost" onclick="location.href='report-lost.html'">Report Lost</button>
+            <!-- <button class="btn btn-found" onclick="location.href='report-found.html'">Report Found</button> -->
+            <button class="btn btn-browse" onclick="location.href='browse.html'">Browse</button>
+            <button class="btn btn-browse" onclick="location.href='login.html'">Login/Register</button>
+        </div>
+    </header>
+
+    <div class="items-container">
+        <h1 class="page-title">Browse Lost Items</h1>
+        <p class="page-subtitle">Help reunite lost items with their owners</p>
+        
+        <div class="search-filter">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search by item name or location...">
+            <select class="filter-select" id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="Valuables">Valuables</option>
+                <option value="Animals">Animals</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div id="loadingMessage" class="loading">
+            Loading lost items...
+        </div>
+
+        <div id="errorMessage" class="error-message" style="display: none;">
+            Failed to load items. Please try again later.
+        </div>
+
+        <div id="noItemsMessage" class="no-items" style="display: none;">
+            No lost items found. Be the first to report a lost item!
+        </div>
+
+        <div class="items-grid" id="itemsGrid">
+            <!-- Items will be populated here -->
+        </div>
     </div>
-  </header>
 
-  <div class="container">
-    <h2>All Reports</h2>
-    <div class="card lost"><h3>Lost: Keys</h3><p>Set of car keys lost near Main Street Market.</p></div>
-    <div class="card found"><h3>Found: Phone</h3><p>iPhone 12 found in library study area.</p></div>
-    <div class="card lost"><h3>Lost: Dog</h3><p>Golden retriever missing since yesterday near Elm Street.</p></div>
-    <div class="card found"><h3>Found: Umbrella</h3><p>Blue umbrella left on bus #22.</p></div>
-  </div>
+    <!-- Particles -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            tsParticles.load("tsparticles", {
+                background: { color: "#0d0d2b" },
+                fpsLimit: 60,
+                particles: {
+                    number: { value: 80 },
+                    color: { value: ["#ffffff", "#FFA726", "#009688"] },
+                    links: { enable: true, distance: 140, color: "#fff", opacity: 0.25 },
+                    move: { enable: true, speed: 1 },
+                    size: { value: { min: 2, max: 4 } },
+                    opacity: { value: 0.6 }
+                },
+                interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
+                detectRetina: true
+            });
+        });
+    </script>
 
-  <!-- Particles -->
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      tsParticles.load("tsparticles", {
-        background: { color: "#0d0d2b" },
-        fpsLimit: 60,
-        particles: {
-          number: { value: 80 },
-          color: { value: ["#ffffff", "#FFA726", "#009688"] },
-          links: { enable: true, distance: 140, color: "#fff", opacity: 0.25 },
-          move: { enable: true, speed: 1 },
-          size: { value: { min: 2, max: 4 } },
-          opacity: { value: 0.6 }
-        },
-        interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
-        detectRetina: true
-      });
-    });
-  </script>
+    <!-- Firebase Integration -->
+    <script type="module">
+        import { getAllLostItems } from './firebase.js';
+
+        let allItems = [];
+        let filteredItems = [];
+
+        // DOM elements
+        const itemsGrid = document.getElementById('itemsGrid');
+        const loadingMessage = document.getElementById('loadingMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const noItemsMessage = document.getElementById('noItemsMessage');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+
+        // Format date function
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Create item card HTML
+        function createItemCard(item) {
+            return `
+                <div class="item-card">
+                    <div class="item-image">
+                        <img src="${item.image}" alt="${item.itemName}" 
+                             onerror="this.parentElement.innerHTML='<span>Image not available</span>'; this.parentElement.classList.add('error');" 
+                             loading="lazy">
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-name">${item.itemName}</h3>
+                        <div class="item-location location-icon">${item.location}</div>
+                        <div class="item-category">${item.category}</div>
+                        <div class="item-date">Lost on ${formatDate(item.createdAt)}</div>
+                        <button class="view-btn" onclick="viewItemDetails('${item.id}')">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render items to grid
+        function renderItems(items) {
+            if (items.length === 0) {
+                itemsGrid.innerHTML = '';
+                noItemsMessage.style.display = 'block';
+                return;
+            }
+
+            noItemsMessage.style.display = 'none';
+            itemsGrid.innerHTML = items.map(item => createItemCard(item)).join('');
+        }
+
+        // Filter items based on search and category
+        function filterItems() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const selectedCategory = categoryFilter.value;
+
+            filteredItems = allItems.filter(item => {
+                const matchesSearch = searchTerm === '' || 
+                    item.itemName.toLowerCase().includes(searchTerm) ||
+                    item.location.toLowerCase().includes(searchTerm) ||
+                    item.description.toLowerCase().includes(searchTerm);
+
+                const matchesCategory = selectedCategory === '' || 
+                    item.category === selectedCategory;
+
+                return matchesSearch && matchesCategory;
+            });
+
+            renderItems(filteredItems);
+        }
+
+        // Load items from Firebase
+        async function loadItems() {
+            try {
+                loadingMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+                noItemsMessage.style.display = 'none';
+
+                const result = await getAllLostItems();
+
+                if (result.success) {
+                    allItems = result.data.sort((a, b) => 
+                        new Date(b.createdAt) - new Date(a.createdAt)
+                    );
+                    filteredItems = [...allItems];
+                    renderItems(filteredItems);
+                } else {
+                    console.error('Error loading items:', result.error);
+                    errorMessage.textContent = `Error: ${result.error}`;
+                    errorMessage.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error loading items:', error);
+                errorMessage.style.display = 'block';
+            } finally {
+                loadingMessage.style.display = 'none';
+            }
+        }
+
+        // View item details function (global scope)
+        window.viewItemDetails = function(itemId) {
+            // Redirect to item details page with the item ID
+            window.location.href = `item-details.html?id=${itemId}`;
+        };
+
+        // Event listeners
+        searchInput.addEventListener('input', filterItems);
+        categoryFilter.addEventListener('change', filterItems);
+
+        // Initialize page
+        loadItems();
+
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            loadItems();
+        }, 30000);
+    </script>
 </body>
+
 </html>

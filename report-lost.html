@@ -1,136 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<title>Lost & Found</title>
-		<link rel="stylesheet" href="style.css">
-		<link rel="website icon" type="png" href="./Logo2.png" />
-		<style>
-			#categories {
-				/* display: flex;
-				flex-direction: column;
-				align-items: center; */
-			}
-			#categories label {
-				font-size: 14px;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="tsparticles"></div>
-		<!-- Navbar -->
-		<header class="navbar">
-			<a href="index.html">
-				<div class="brand"><img src="./Logo1.png" alt=""></div>
-			</a>
-			<div class="nav-right">
-				<button class="btn btn-browse" onclick="location.href='index.html'">Home</button>
-				<button class="btn btn-lost" onclick="location.href='report-lost.html'">Report Lost</button>
-				<button class="btn btn-found" onclick="location.href='report-found.html'">Report Found</button>
-				<button class="btn btn-browse" onclick="location.href='list.html'">Browse</button>
-				<button class="btn btn-browse" onclick="location.href='login.html'">Login/Register</button>
-			</div>
-		</header>
-		<div class="container">
-			<h2>Report Lost Item</h2>
-			<form onsubmit="return checkLogin(event)" id="lostForm">
-				<label>Item Name</label>
-				<input type="text" placeholder="e.g., Phone" id="itemName" required>
-				<label>Description</label>
-				<textarea rows="3" placeholder="Describe the lost item" id='description' required></textarea>
-				<label>Last known location</label>
-				<input type="text" placeholder="Where did you lose it?" id='location' required>
-				<label>Category</label>
-				<div id="categories">
-					<input type="radio" id="html" name="fav_language" value="HTML">
-					<label for="html">Valuables</label><br>
-					<input type="radio" id="css" name="fav_language" value="CSS">
-					<label for="css">Animals</label><br>
-					<input type="radio" id="javascript" name="fav_language" value="JavaScript">
-					<label for="javascript">Electronics</label><br>
-					<input type="radio" id="javascript" name="fav_language" value="JavaScript">
-					<label for="javascript">Other</label>
-				</div>
-				<label>Contact</label>
-				<input type="text" placeholder="Your email" id='contact' required>
-				<label>Upload image</label>
-				<input type="text" placeholder="URL only" id='image' required>
-				<p>(To get an image url easily, <a href='https://tikolu.net/i/' target='_blank'>click here</a>)</p>
-				<!-- <input type="file" placeholder="" id="image" required accept='image/png image/jpeg'> -->
-				<button type="submit" class="btn btn-lost">Submit Lost Report</button>
-			</form>
-		</div>
-		<!-- Particles + Login Check -->
-		<script>
-			function checkLogin(e) {
-				const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-				if (!isLoggedIn) {
-					e.preventDefault();
-					alert("You must login before submitting a report.");
-					window.location.href = "login.html";
-					return false;
-				}
-				return true;
-			}
+<head>
+    <meta charset="UTF-8">
+    <title>Lost & Found</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="website icon" type="png" href="./Logo2.png" />
+</head>
 
-		</script>
-		</form>
-		<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-		<script>
-			document.addEventListener('DOMContentLoaded', () => {
-				tsParticles.load("tsparticles", {
-					background: { color: "#0d0d2b" },
-					fpsLimit: 60,
-					particles: {
-						number: { value: 80 },
-						color: { value: ["#ffffff", "#FFA726", "#009688"] },
-						links: { enable: true, distance: 140, color: "#fff", opacity: 0.25 },
-						move: { enable: true, speed: 1 },
-						size: { value: { min: 2, max: 4 } },
-						opacity: { value: 0.6 }
-					},
-					interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
-					detectRetina: true
-				});
-			});
-		</script>
-		<script>
-			import { } from './config.js'
-			let lostForm = document.getElementById("lostForm")
+<body>
+    <div id="tsparticles"></div>
 
-			const imageInput = document.getElementById('image');
-			lostForm.addEventListener('submit', async (e) => {
-				e.preventDefault();
+    <header class="navbar">
+        <a href="index.html">
+            <div class="brand"><img src="./Logo1.png" alt=""></div>
+        </a>
+        <div class="nav-right">
+            <button class="btn btn-browse" onclick="location.href='index.html'">Home</button>
+            <button class="btn btn-lost" onclick="location.href='report-lost.html'">Report Lost</button>
+            <!-- <button class="btn btn-found" onclick="location.href='report-found.html'">Report Found</button> -->
+            <button class="btn btn-browse" onclick="location.href='list.html'">Browse</button>
+            <button class="btn btn-browse" onclick="location.href='login.html'">Login/Register</button>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h2>Report Lost Item</h2>
+        <form id="lostForm">
+            <label>Item Name</label>
+            <input type="text" placeholder="e.g., Phone" id="itemName" required>
+            
+            <label>Description</label>
+            <textarea rows="3" placeholder="Describe the lost item" id="description" required></textarea>
+            
+            <label>Last known location</label>
+            <input type="text" placeholder="Where did you lose it?" id="location" required>
+            
+            <label>Category</label>
+            <div id="categories">
+                <input type="radio" id="valuables" name="category" value="Valuables" required>
+                <label for="valuables">Valuables</label><br>
+                <input type="radio" id="animals" name="category" value="Animals" required>
+                <label for="animals">Animals</label><br>
+                <input type="radio" id="electronics" name="category" value="Electronics" required>
+                <label for="electronics">Electronics</label><br>
+                <input type="radio" id="other" name="category" value="Other" required>
+                <label for="other">Other</label>
+            </div>
+            
+            <label>Contact</label>
+            <input type="email" placeholder="Your email" id="contact" required>
+            
+            <label>Upload image</label>
+            <input type="url" placeholder="Image URL only" id="image" required>
+            <p>(To get an image url easily, <a href='https://tikolu.net/i/' target='_blank'>click here</a>)</p>
+            
+            <button type="submit" class="btn btn-lost" id="submitBtn">Submit Lost Report</button>
+        </form>
+        
+        <!-- Loading and success messages -->
+        <div id="message" style="margin-top: 20px; padding: 10px; border-radius: 5px; display: none;"></div>
+    </div>
 
-				const files = imageInput.files; // FileList from the input
-				if (!files || files.length === 0) return;
+    <!-- Particles -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            tsParticles.load("tsparticles", {
+                background: { color: "#0d0d2b" },
+                fpsLimit: 60,
+                particles: {
+                    number: { value: 80 },
+                    color: { value: ["#ffffff", "#FFA726", "#009688"] },
+                    links: { enable: true, distance: 140, color: "#fff", opacity: 0.25 },
+                    move: { enable: true, speed: 1 },
+                    size: { value: { min: 2, max: 4 } },
+                    opacity: { value: 0.6 }
+                },
+                interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
+                detectRetina: true
+            });
+        });
+    </script>
 
-				const file = files[0];
-				console.log(file.name, file.size, file.type, file.lastModified);
+    <!-- Firebase Integration -->
+    <script type="module">
+        import { getCurrentUser, addLostItem } from './firebase.js';
 
-				// Optional: upload using FormData
-				const formData = new FormData(lostForm); // includes the file because name="image"
-				// Or: const formData = new FormData(); formData.append('image', file, file.name);
+        const lostForm = document.getElementById("lostForm");
+        const messageDiv = document.getElementById("message");
+        const submitBtn = document.getElementById("submitBtn");
 
-				const res = await fetch('/upload', { method: 'POST', body: formData });
-				if (!res.ok) {
-					console.error('Upload failed');
-					return;
-				}
-				console.log('Uploaded!');
-			});
-			function checkLogin(e) {
-				const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-				if (!isLoggedIn) {
-					e.preventDefault();
-					alert("You must login before submitting a report.");
-					window.location.href = "login.html";
-					return false;
-				}
-				return true;
-			}
-		</script>
-	</body>
+        // Function to show messages
+        function showMessage(text, type = 'info') {
+            messageDiv.textContent = text;
+            messageDiv.style.display = 'block';
+            messageDiv.style.backgroundColor = type === 'success' ? '#d4edda' : 
+                                              type === 'error' ? '#f8d7da' : '#d1ecf1';
+            messageDiv.style.color = type === 'success' ? '#155724' : 
+                                    type === 'error' ? '#721c24' : '#0c5460';
+            messageDiv.style.border = `1px solid ${type === 'success' ? '#c3e6cb' : 
+                                                   type === 'error' ? '#f5c6cb' : '#bee5eb'}`;
+        }
+
+        // Function to check login status
+        async function checkLogin() {
+            try {
+                const user = await getCurrentUser();
+                return user !== null;
+            } catch (error) {
+                console.error("Error checking login status:", error);
+                return false;
+            }
+        }
+
+        // Function to get selected category
+        function getSelectedCategory() {
+            const categoryInputs = document.querySelectorAll('input[name="category"]');
+            for (const input of categoryInputs) {
+                if (input.checked) {
+                    return input.value;
+                }
+            }
+            return null;
+        }
+
+        // Form submission handler
+        lostForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Check if user is logged in
+            const isLoggedIn = await checkLogin();
+            if (!isLoggedIn) {
+                alert("You must login before submitting a report.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            // Disable submit button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Submitting...";
+            showMessage("Submitting your lost item report...", 'info');
+
+            try {
+                // Get form data
+                const itemName = document.getElementById('itemName').value.trim();
+                const description = document.getElementById('description').value.trim();
+                const location = document.getElementById('location').value.trim();
+                const category = getSelectedCategory();
+                const contact = document.getElementById('contact').value.trim();
+                const image = document.getElementById('image').value.trim();
+
+                // Validate required fields
+                if (!itemName || !description || !location || !category || !contact || !image) {
+                    showMessage("Please fill in all required fields.", 'error');
+                    return;
+                }
+
+                // Validate email format
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(contact)) {
+                    showMessage("Please enter a valid email address.", 'error');
+                    return;
+                }
+
+                // Validate URL format
+                const urlRegex = /^https?:\/\/.+/;
+                if (!urlRegex.test(image)) {
+                    showMessage("Please enter a valid image URL (starting with http:// or https://).", 'error');
+                    return;
+                }
+
+                // Prepare data for Firebase
+                const lostItemData = {
+                    itemName,
+                    description,
+                    location,
+                    category,
+                    contact,
+                    image
+                };
+
+                // Submit to Firebase
+                const result = await addLostItem(lostItemData);
+
+                if (result.success) {
+                    showMessage("Lost item report submitted successfully! Your report ID is: " + result.id, 'success');
+                    
+                    // Reset form after successful submission
+                    lostForm.reset();
+                    
+                    // Redirect to browse page after a delay
+                    setTimeout(() => {
+                        window.location.href = "list.html";
+                    }, 3000);
+                } else {
+                    showMessage("Error submitting report: " + result.error, 'error');
+                }
+
+            } catch (error) {
+                console.error("Submission error:", error);
+                showMessage("An unexpected error occurred. Please try again.", 'error');
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit Lost Report";
+            }
+        });
+    </script>
+</body>
 
 </html>

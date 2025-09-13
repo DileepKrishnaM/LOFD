@@ -1,93 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Lost & Found</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="website icon" type="png" href="./Logo2.png" />
-</head>
-<body>
-  <div id="tsparticles"></div>
 
-  <!-- Navbar -->
-  <header class="navbar">
-    <a href="index.html"><div class="brand"><img src="./Logo1.png" alt=""></div></a>
+	<head>
+		<meta charset="UTF-8">
+		<title>Lost & Found</title>
+		<link rel="stylesheet" href="style.css">
+		<link rel="website icon" type="png" href="./Logo2.png" />
+		<style>
+			#categories {
+				/* display: flex;
+				flex-direction: column;
+				align-items: center; */
+			}
+			#categories label {
+				font-size: 14px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="tsparticles"></div>
+		<!-- Navbar -->
+		<header class="navbar">
+			<a href="index.html">
+				<div class="brand"><img src="./Logo1.png" alt=""></div>
+			</a>
+			<div class="nav-right">
+				<button class="btn btn-browse" onclick="location.href='index.html'">Home</button>
+				<button class="btn btn-lost" onclick="location.href='report-lost.html'">Report Lost</button>
+				<button class="btn btn-found" onclick="location.href='report-found.html'">Report Found</button>
+				<button class="btn btn-browse" onclick="location.href='list.html'">Browse</button>
+				<button class="btn btn-browse" onclick="location.href='login.html'">Login/Register</button>
+			</div>
+		</header>
+		<div class="container">
+			<h2>Report Lost Item</h2>
+			<form onsubmit="return checkLogin(event)" id="lostForm">
+				<label>Item Name</label>
+				<input type="text" placeholder="e.g., Phone" id="itemName" required>
+				<label>Description</label>
+				<textarea rows="3" placeholder="Describe the lost item" id='description' required></textarea>
+				<label>Last known location</label>
+				<input type="text" placeholder="Where did you lose it?" id='location' required>
+				<label>Category</label>
+				<div id="categories">
+					<input type="radio" id="html" name="fav_language" value="HTML">
+					<label for="html">Valuables</label><br>
+					<input type="radio" id="css" name="fav_language" value="CSS">
+					<label for="css">Animals</label><br>
+					<input type="radio" id="javascript" name="fav_language" value="JavaScript">
+					<label for="javascript">Electronics</label><br>
+					<input type="radio" id="javascript" name="fav_language" value="JavaScript">
+					<label for="javascript">Other</label>
+				</div>
+				<label>Contact</label>
+				<input type="text" placeholder="Your email" id='contact' required>
+				<label>Upload image</label>
+				<input type="text" placeholder="URL only" id='image' required>
+				<p>(To get an image url easily, <a href='https://tikolu.net/i/' target='_blank'>click here</a>)</p>
+				<!-- <input type="file" placeholder="" id="image" required accept='image/png image/jpeg'> -->
+				<button type="submit" class="btn btn-lost">Submit Lost Report</button>
+			</form>
+		</div>
+		<!-- Particles + Login Check -->
+		<script>
+			function checkLogin(e) {
+				const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+				if (!isLoggedIn) {
+					e.preventDefault();
+					alert("You must login before submitting a report.");
+					window.location.href = "login.html";
+					return false;
+				}
+				return true;
+			}
 
-    <div class="nav-right">
-      <button class="btn btn-browse" onclick="location.href='index.html'">Home</button>
-      <button class="btn btn-lost" onclick="location.href='report-lost.html'">Report Lost</button>
-      <button class="btn btn-found" onclick="location.href='report-found.html'">Report Found</button>
-      <button class="btn btn-browse" onclick="location.href='list.html'">Browse</button>
-      <button class="btn btn-browse" onclick="location.href='login.html'">Login/Register</button>
-    </div>
-  </header>
+		</script>
+		</form>
+		<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				tsParticles.load("tsparticles", {
+					background: { color: "#0d0d2b" },
+					fpsLimit: 60,
+					particles: {
+						number: { value: 80 },
+						color: { value: ["#ffffff", "#FFA726", "#009688"] },
+						links: { enable: true, distance: 140, color: "#fff", opacity: 0.25 },
+						move: { enable: true, speed: 1 },
+						size: { value: { min: 2, max: 4 } },
+						opacity: { value: 0.6 }
+					},
+					interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
+					detectRetina: true
+				});
+			});
+		</script>
+		<script>
+			import { } from './config.js'
+			let lostForm = document.getElementById("lostForm")
 
-  <div class="container">
-    <h2>Report Lost Item</h2>
-    <form onsubmit="return checkLogin(event)">
-      <label>Item Name</label>
-      <input type="text" placeholder="e.g., Phone" required>
+			const imageInput = document.getElementById('image');
+			lostForm.addEventListener('submit', async (e) => {
+				e.preventDefault();
 
-      <label>Description</label>
-      <textarea rows="3" placeholder="Describe the lost item"></textarea>
+				const files = imageInput.files; // FileList from the input
+				if (!files || files.length === 0) return;
 
-      <label>Location</label>
-      <input type="text" placeholder="Where did you lose it?" required>
+				const file = files[0];
+				console.log(file.name, file.size, file.type, file.lastModified);
 
-      <label>Contact</label>
-      <input type="text" placeholder="Your phone/email" required>
+				// Optional: upload using FormData
+				const formData = new FormData(lostForm); // includes the file because name="image"
+				// Or: const formData = new FormData(); formData.append('image', file, file.name);
 
-      <button type="submit" class="btn btn-lost">Submit Lost Report</button>
-    </form>
-  </div>
+				const res = await fetch('/upload', { method: 'POST', body: formData });
+				if (!res.ok) {
+					console.error('Upload failed');
+					return;
+				}
+				console.log('Uploaded!');
+			});
+			function checkLogin(e) {
+				const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+				if (!isLoggedIn) {
+					e.preventDefault();
+					alert("You must login before submitting a report.");
+					window.location.href = "login.html";
+					return false;
+				}
+				return true;
+			}
+		</script>
+	</body>
 
-  <!-- Particles + Login Check -->
-  <script>
-    function checkLogin(e) {
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      if (!isLoggedIn) {
-        e.preventDefault();
-        alert("You must login before submitting a report.");
-        window.location.href = "login.html";
-        return false;
-      }
-      return true;
-    }
-    
-  </script>
-</form>
-
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      tsParticles.load("tsparticles", {
-        background: { color: "#0d0d2b" },
-        fpsLimit: 60,
-        particles: {
-          number: { value: 80 },
-          color: { value: ["#ffffff", "#FFA726", "#009688"] },
-          links: { enable: true, distance: 140, color: "#fff", opacity: 0.25 },
-          move: { enable: true, speed: 1 },
-          size: { value: { min: 2, max: 4 } },
-          opacity: { value: 0.6 }
-        },
-        interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
-        detectRetina: true
-      });
-    });
-  </script>
-<script>
-  function checkLogin(e) {
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    if (!isLoggedIn) {
-      e.preventDefault();
-      alert("You must login before submitting a report.");
-      window.location.href = "login.html";
-      return false;
-    }
-    return true;
-  }
-</script>
-
-</body>
 </html>

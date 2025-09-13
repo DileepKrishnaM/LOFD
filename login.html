@@ -1,493 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>TasteTrove - Login or Register</title>
-		<link rel="website icon" type="png" href="./Logo2.png" />
-		<style>
-			* {
-				margin: 0;
-				padding: 0;
-				box-sizing: border-box;
-				font-family: Arial, sans-serif;
-			}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lost & Found</title>
+  <link rel="website icon" type="png" href="Logo2.png" />
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
 
-			body {
-				background: linear-gradient(rgba(8, 87, 80, 0.7), rgba(0, 0, 0, 0.7)),
-					url('./LandingBG.jpg') center/cover no-repeat;
-				min-height: 100vh;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
+    html,
+    body {
+      height: 100%;
+      overflow-x: hidden;
+      color: #f5f5f5;
+    }
 
-			.form-container {
-				background-color: rgba(255, 255, 255, 0.9);
-				border-radius: 10px;
-				width: 100%;
-				max-width: 450px;
-				padding: 2rem;
-				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-				position: relative;
-			}
+    /* Background Gradient */
+    body {
+      background: linear-gradient(135deg, #0d0d2b, #1c1c3c);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
 
-			.logo-container {
-				text-align: center;
-				margin-bottom: 1.5rem;
-			}
+    /* Particles */
+    #tsparticles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
 
-			.logo-img {
-				width: 70px;
-				height: 70px;
-				margin-bottom: 0.5rem;
-			}
+    /* Form Container */
+    .form-container {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 15px;
+      width: 100%;
+      max-width: 450px;
+      padding: 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
 
-			.logo-text {
-				font-family: 'Times New Roman', Times, serif;
-				font-size: 1.8rem;
-				margin-bottom: 0.5rem;
-				color: #000;
-			}
+    /* Toggle Buttons */
+    .form-toggle {
+      display: flex;
+      margin-bottom: 1.5rem;
+    }
 
-			.form-toggle {
-				display: flex;
-				margin-bottom: 1.5rem;
-			}
+    .toggle-btn {
+      flex: 1;
+      padding: 0.5rem;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      color: #f5f5f5;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      border-radius: 8px;
+      margin: 0 2px;
+      font-weight: bold;
+    }
 
-			.toggle-btn {
-				flex: 1;
-				padding: 0.5rem;
-				text-align: center;
-				background-color: #e7d3bb;
-				color: #333;
-				cursor: pointer;
-				transition: all 0.3s ease;
-				border: none;
-			}
+    .toggle-btn.active.login {
+      background: #FFA726;
+      color: #0d0d2b;
+    }
 
-			.toggle-btn:first-child {
-				border-top-left-radius: 5px;
-				border-bottom-left-radius: 5px;
-			}
+    .toggle-btn.active.register {
+      background: #009688;
+      color: #fff;
+    }
 
-			.toggle-btn:last-child {
-				border-top-right-radius: 5px;
-				border-bottom-right-radius: 5px;
-			}
+    /* Forms */
+    form {
+      text-align: left;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2rem;
+      border-radius: 15px;
+      backdrop-filter: blur(12px);
+    }
 
-			.toggle-btn.active {
-				background-color: #f09a3e;
-				color: white;
-			}
+    form label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: bold;
+    }
 
-			.form-group {
-				margin-bottom: 1.2rem;
-			}
+    form input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      outline: none;
+      background: rgba(255, 255, 255, 0.15);
+      color: #f5f5f5;
+    }
 
-			.form-group label {
-				display: block;
-				margin-bottom: 0.5rem;
-				font-weight: bold;
-				color: #333;
-			}
+    form input::placeholder {
+      color: rgba(245, 245, 245, 0.7);
+    }
 
-			.form-group input {
-				width: 100%;
-				padding: 0.75rem;
-				border-radius: 5px;
-				border: 1px solid #ddd;
-				font-size: 1rem;
-			}
+    /* Buttons */
+    .login-form button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #0d0d2b;
+      background: #FFA726;
+      font-size: 1rem;
+    }
 
-			.form-btn {
-				width: 100%;
-				padding: 0.75rem;
-				border-radius: 25px;
-				border: none;
-				background: linear-gradient(135deg, #4169e1, #0000cd);
-				color: white;
-				font-size: 1rem;
-				cursor: pointer;
-				transition: all 0.3s ease;
-				text-transform: uppercase;
-				margin-top: 1rem;
-			}
+    .login-form button:hover {
+      background: #FB8C00;
+      transform: scale(1.03);
+    }
 
-			.form-btn:hover {
-				transform: translateY(-2px);
-				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-			}
+    .register-form button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #fff;
+      background: #009688;
+      font-size: 1rem;
+    }
 
-			.login-form,
-			.register-form,
-			.verification-info,
-			.forgot-password-form {
-				display: none;
-			}
+    .register-form button:hover {
+      background: #00796B;
+      transform: scale(1.03);
+    }
 
-			.login-form.active,
-			.register-form.active,
-			.verification-info.active,
-			.forgot-password-form.active {
-				display: block;
-			}
+    /* Alerts */
+    .alert {
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      display: none;
+    }
 
-			.alert {
-				padding: 0.75rem;
-				margin-bottom: 1rem;
-				border-radius: 5px;
-				text-align: center;
-				display: none;
-			}
+    .alert-error {
+      background-color: rgba(255, 0, 0, 0.15);
+      color: #ff6b6b;
+    }
 
-			.alert-error {
-				background-color: #ffebee;
-				color: #c62828;
-				border: 1px solid #ef9a9a;
-			}
+    .alert-success {
+      background-color: rgba(0, 255, 0, 0.15);
+      color: #00e676;
+    }
 
-			.alert-success {
-				background-color: #e8f5e9;
-				color: #2e7d32;
-				border: 1px solid #a5d6a7;
-			}
+    /* Verification Info */
+    .verification-info {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 1rem;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 1rem;
+    }
 
-			.verification-info {
-				text-align: center;
-				padding: 1rem;
-				background-color: #e3f2fd;
-				border-radius: 5px;
-				border: 1px solid #90caf9;
-				margin-bottom: 1rem;
-			}
+    .verification-title {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #FFA726;
+    }
 
-			.verification-title {
-				font-weight: bold;
-				margin-bottom: 0.5rem;
-				color: #1565c0;
-			}
+    .verification-email {
+      font-weight: bold;
+      color: #009688;
+    }
 
-			.verification-text {
-				margin-bottom: 0.5rem;
-			}
+    .resend-btn {
+      margin-top: 0.5rem;
+      background: #009688;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-			.verification-email {
-				font-weight: bold;
-				margin-bottom: 0.5rem;
-			}
+    .resend-btn:hover {
+      background: #00796B;
+      transform: scale(1.05);
+    }
 
-			.resend-btn {
-				background-color: #1565c0;
-				color: white;
-				border: none;
-				padding: 0.5rem 1rem;
-				border-radius: 5px;
-				cursor: pointer;
-				font-size: 0.9rem;
-				margin-top: 0.5rem;
-			}
+    /* Links */
+    .forgot-password-link,
+    .back-to-login-link,
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 0.5rem;
+      color: #FFA726;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
 
-			.back-link {
-				display: block;
-				text-align: center;
-				margin-top: 1rem;
-				color: #333;
-				text-decoration: none;
-			}
+    .forgot-password-link:hover,
+    .back-to-login-link:hover,
+    .back-link:hover {
+      color: #FFB74D;
+      text-decoration: underline;
+    }
 
-			.back-link:hover {
-				text-decoration: underline;
-			}
+    /* Hide all forms initially */
+    .login-form,
+    .register-form,
+    .forgot-password-form,
+    .verification-info {
+      display: none;
+    }
 
-			.forgot-password-link {
-				display: block;
-				text-align: center;
-				margin-top: 0.5rem;
-				color: #1565c0;
-				text-decoration: none;
-				font-size: 0.9rem;
-			}
+    .login-form.active,
+    .register-form.active,
+    .forgot-password-form.active,
+    .verification-info.active {
+      display: block;
+    }
+  </style>
+</head>
 
-			.forgot-password-link:hover {
-				text-decoration: underline;
-			}
+<body>
+  <!-- Particles container -->
+  <div id="tsparticles"></div>
 
-			.back-to-login-link {
-				display: block;
-				text-align: center;
-				margin-top: 1rem;
-				color: #1565c0;
-				text-decoration: none;
-				font-size: 0.9rem;
-			}
+  <div class="form-container">
+    <div class="form-toggle">
+      <button class="toggle-btn active login" id="loginBtn">Login</button>
+      <button class="toggle-btn register" id="registerBtn">Register</button>
+    </div>
 
-			.back-to-login-link:hover {
-				text-decoration: underline;
-			}
-		</style>
-	</head>
+    <div class="alert alert-error" id="errorAlert"></div>
+    <div class="alert alert-success" id="successAlert"></div>
 
-	<body>
-		<div class="form-container">
-			<div class="form-toggle">
-				<button class="toggle-btn active" id="loginBtn">Login</button>
-				<button class="toggle-btn" id="registerBtn">Register</button>
-			</div>
-			<div class="alert alert-error" id="errorAlert"></div>
-			<div class="alert alert-success" id="successAlert"></div>
-			<div class="verification-info" id="verificationInfo">
-				<div class="verification-title">Email Verification Required</div>
-				<p class="verification-text">We've sent a verification link to:</p>
-				<p class="verification-email" id="verificationEmail"></p>
-				<p class="verification-text">Please check your inbox and click the link to verify your account.</p>
-				<button class="resend-btn" id="resendBtn">Resend Verification Email</button>
-			</div>
-			<form class="login-form active" id="loginForm">
-				<div class="form-group">
-					<label for="loginEmail">Email</label>
-					<input type="email" id="loginEmail" required placeholder="Enter your email">
-				</div>
-				<div class="form-group">
-					<label for="loginPassword">Password</label>
-					<input type="password" id="loginPassword" required placeholder="Enter your password">
-				</div>
-				<button type="submit" class="form-btn">Login</button>
-				<a href="#" class="forgot-password-link" id="forgotPasswordLink">Forgot Password?</a>
-			</form>
-			<form class="register-form" id="registerForm">
-				<div class="form-group">
-					<label for="registerUsername">Username</label>
-					<input type="text" id="registerUsername" required placeholder="Choose a username">
-				</div>
-				<div class="form-group">
-					<label for="registerEmail">Email</label>
-					<input type="email" id="registerEmail" required placeholder="Enter your email">
-				</div>
-				<div class="form-group">
-					<label for="registerPassword">Password</label>
-					<input type="password" id="registerPassword" required placeholder="Choose a password">
-				</div>
-				<div class="form-group">
-					<label for="registerConfirmPassword">Confirm Password</label>
-					<input type="password" id="registerConfirmPassword" required placeholder="Confirm your password">
-				</div>
-				<button type="submit" class="form-btn">Register</button>
-			</form>
-			<form class="forgot-password-form" id="forgotPasswordForm">
-				<div class="form-group">
-					<label for="resetEmail">Email</label>
-					<input type="email" id="resetEmail" required placeholder="Enter your email">
-				</div>
-				<button type="submit" class="form-btn">Reset Password</button>
-				<a href="#" class="back-to-login-link" id="backToLoginLink">Back to Login</a>
-			</form>
-			<a href="index.html" class="back-link">Back to Home</a>
-		</div>
-		<script type="module">
-			// Import Firebase functions
-			// import { registerUser, loginUser, resendVerificationEmail, sendPasswordResetEmail } from './firebase.js';
+    <div class="verification-info" id="verificationInfo">
+      <div class="verification-title">Email Verification Required</div>
+      <p>We've sent a verification link to:</p>
+      <p class="verification-email" id="verificationEmail"></p>
+      <p>Please check your inbox and click the link to verify your account.</p>
+      <button class="resend-btn" id="resendBtn">Resend Verification Email</button>
+    </div>
 
-			// DOM Elements
-			const loginBtn = document.getElementById('loginBtn');
-			const registerBtn = document.getElementById('registerBtn');
-			const loginForm = document.getElementById('loginForm');
-			const registerForm = document.getElementById('registerForm');
-			const forgotPasswordForm = document.getElementById('forgotPasswordForm');
-			const forgotPasswordLink = document.getElementById('forgotPasswordLink');
-			const backToLoginLink = document.getElementById('backToLoginLink');
-			const errorAlert = document.getElementById('errorAlert');
-			const successAlert = document.getElementById('successAlert');
-			const verificationInfo = document.getElementById('verificationInfo');
-			const verificationEmail = document.getElementById('verificationEmail');
-			const resendBtn = document.getElementById('resendBtn');
+    <form class="login-form active" id="loginForm">
+      <label for="loginEmail">Email</label>
+      <input type="email" id="loginEmail" required placeholder="Enter your email">
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" required placeholder="Enter your password">
+      <button type="submit">Login</button>
+      <a href="#" class="forgot-password-link" id="forgotPasswordLink">Forgot Password?</a>
+    </form>
 
-			// Store current user for resending verification
-			let currentUser = null;
+    <form class="register-form" id="registerForm">
+      <label for="registerUsername">Username</label>
+      <input type="text" id="registerUsername" required placeholder="Choose a username">
+      <label for="registerEmail">Email</label>
+      <input type="email" id="registerEmail" required placeholder="Enter your email">
+      <label for="registerPassword">Password</label>
+      <input type="password" id="registerPassword" required placeholder="Choose a password">
+      <label for="registerConfirmPassword">Confirm Password</label>
+      <input type="password" id="registerConfirmPassword" required placeholder="Confirm your password">
+      <button type="submit">Register</button>
+    </form>
 
-			// Toggle between login and register forms
-			loginBtn.addEventListener('click', () => {
-				loginBtn.classList.add('active');
-				registerBtn.classList.remove('active');
-				loginForm.classList.add('active');
-				console.log("Switched to register form");
+    <form class="forgot-password-form" id="forgotPasswordForm">
+      <label for="resetEmail">Email</label>
+      <input type="email" id="resetEmail" required placeholder="Enter your email">
+      <button type="submit">Reset Password</button>
+      <a href="#" class="back-to-login-link" id="backToLoginLink">Back to Login</a>
+    </form>
 
-				registerForm.classList.remove('active');
-				forgotPasswordForm.classList.remove('active');
-				verificationInfo.classList.remove('active');
-				hideAlerts();
-			});
+    <a href="index.html" class="back-link">Back to Home</a>
+  </div>
 
-			registerBtn.addEventListener('click', () => {
-				registerBtn.classList.add('active');
-				loginBtn.classList.remove('active');
-				registerForm.classList.add('active');
-				loginForm.classList.remove('active');
-				forgotPasswordForm.classList.remove('active');
-				verificationInfo.classList.remove('active');
-				hideAlerts();
-			});
+  <!-- tsparticles CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
-			// Show forgot password form
-			forgotPasswordLink.addEventListener('click', (e) => {
-				e.preventDefault();
-				loginForm.classList.remove('active');
-				forgotPasswordForm.classList.add('active');
-				hideAlerts();
-			});
+  <script type="module">
+    // Toggle forms
+    const loginBtn = document.getElementById('loginBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+    const backToLoginLink = document.getElementById('backToLoginLink');
+    const errorAlert = document.getElementById('errorAlert');
+    const successAlert = document.getElementById('successAlert');
+    const verificationInfo = document.getElementById('verificationInfo');
+    const verificationEmail = document.getElementById('verificationEmail');
+    const resendBtn = document.getElementById('resendBtn');
 
-			// Back to login from forgot password form
-			backToLoginLink.addEventListener('click', (e) => {
-				e.preventDefault();
-				forgotPasswordForm.classList.remove('active');
-				loginForm.classList.add('active');
-				hideAlerts();
-			});
+    let currentUser = null;
 
-			// Login form submission
-			loginForm.addEventListener('submit', async (e) => {
-				e.preventDefault();
-				hideAlerts();
+    loginBtn.addEventListener('click', () => {
+      loginBtn.classList.add('active', 'login');
+      registerBtn.classList.remove('active');
+      loginForm.classList.add('active');
+      registerForm.classList.remove('active');
+      forgotPasswordForm.classList.remove('active');
+      verificationInfo.classList.remove('active');
+      hideAlerts();
+    });
 
-				const email = document.getElementById('loginEmail').value;
-				const password = document.getElementById('loginPassword').value;
+    registerBtn.addEventListener('click', () => {
+      registerBtn.classList.add('active', 'register');
+      loginBtn.classList.remove('active');
+      registerForm.classList.add('active');
+      loginForm.classList.remove('active');
+      forgotPasswordForm.classList.remove('active');
+      verificationInfo.classList.remove('active');
+      hideAlerts();
+    });
 
-				if (!email || !password) {
-					showError('Please fill in all fields');
-					return;
-				}
+    forgotPasswordLink.addEventListener('click', e => {
+      e.preventDefault();
+      loginForm.classList.remove('active');
+      forgotPasswordForm.classList.add('active');
+      hideAlerts();
+    });
 
-				try {
-					const result = await loginUser(email, password);
-					if (result.success) {
-						showSuccess('Login successful! Redirecting...');
-						// Redirect to home page after 1 second
-						setTimeout(() => {
-							window.location.href = 'home.html';
-						}, 1000);
-					} else if (result.needsVerification) {
-						// Show verification info and store user for resend functionality
-						currentUser = result.user;
-						verificationEmail.textContent = email;
-						loginForm.classList.remove('active');
-						verificationInfo.classList.add('active');
-					} else {
-						showError(result.error || 'Login failed. Please try again.');
-					}
-				} catch (error) {
-					showError('An error occurred. Please try again.');
-					console.error(error);
-				}
-			});
+    backToLoginLink.addEventListener('click', e => {
+      e.preventDefault();
+      forgotPasswordForm.classList.remove('active');
+      loginForm.classList.add('active');
+      hideAlerts();
+    });
 
-			// Register form submission
-			registerForm.addEventListener('submit', async (e) => {
-				e.preventDefault();
-				hideAlerts();
+    function showError(msg) {
+      errorAlert.textContent = msg;
+      errorAlert.style.display = 'block';
+    }
 
-				const username = document.getElementById('registerUsername').value;
-				const email = document.getElementById('registerEmail').value;
-				const password = document.getElementById('registerPassword').value;
-				const confirmPassword = document.getElementById('registerConfirmPassword').value;
+    function showSuccess(msg) {
+      successAlert.textContent = msg;
+      successAlert.style.display = 'block';
+    }
 
-				if (!username || !email || !password || !confirmPassword) {
-					showError('Please fill in all fields');
-					return;
-				}
+    function hideAlerts() {
+      errorAlert.style.display = 'none';
+      successAlert.style.display = 'none';
+    }
 
-				if (password !== confirmPassword) {
-					showError('Passwords do not match');
-					return;
-				}
-
-				if (password.length < 6) {
-					showError('Password must be at least 6 characters');
-					return;
-				}
-
-				try {
-					const result = await registerUser(email, password, username);
-					if (result.success) {
-						// Store user for resend functionality
-						currentUser = result.user;
-
-						// Show verification info
-						registerForm.classList.remove('active');
-						verificationEmail.textContent = email;
-						verificationInfo.classList.add('active');
-
-						showSuccess('Registration successful! Please verify your email.');
-					} else {
-						showError(result.error || 'Registration failed. Please try again.');
-					}
-				} catch (error) {
-					showError('An error occurred. Please try again.');
-					console.error(error);
-				}
-			});
-
-			// Forgot password form submission
-			forgotPasswordForm.addEventListener('submit', async (e) => {
-				e.preventDefault();
-				hideAlerts();
-
-				const email = document.getElementById('resetEmail').value;
-
-				if (!email) {
-					showError('Please enter your email address');
-					return;
-				}
-
-				try {
-					const result = await sendPasswordResetEmail(email);
-					if (result.success) {
-						showSuccess('Password reset email sent! Please check your inbox.');
-					} else {
-						showError(result.error || 'Failed to send password reset email. Please try again.');
-					}
-				} catch (error) {
-					showError('An error occurred. Please try again.');
-					console.error(error);
-				}
-			});
-
-			// Resend verification email
-			resendBtn.addEventListener('click', async () => {
-				if (!currentUser) {
-					showError('No user found. Please try logging in again.');
-					return;
-				}
-
-				try {
-					const result = await resendVerificationEmail(currentUser);
-					if (result.success) {
-						showSuccess('Verification email resent successfully!');
-					} else {
-						showError(result.error || 'Failed to resend email. Please try again.');
-					}
-				} catch (error) {
-					showError('An error occurred. Please try again.');
-					console.error(error);
-				}
-			});
-
-			// Helper functions for alerts
-			function showError(message) {
-				errorAlert.textContent = message;
-				errorAlert.style.display = 'block';
-			}
-
-			function showSuccess(message) {
-				successAlert.textContent = message;
-				successAlert.style.display = 'block';
-			}
-
-			function hideAlerts() {
-				errorAlert.style.display = 'none';
-				successAlert.style.display = 'none';
-			}
-		</script>
-	</body>
+    // Initialize tsparticles
+    document.addEventListener('DOMContentLoaded', () => {
+      tsParticles.load("tsparticles", {
+        background: { color: "#0d0d2b" },
+        fpsLimit: 60,
+        particles: {
+          number: { value: 80 },
+          color: { value: ["#ffffff", "#FFA726", "#009688"] },
+          links: { enable: true, distance: 140, color: "#fff", opacity: 0.25 },
+          move: { enable: true, speed: 1 },
+          size: { value: { min: 2, max: 4 } },
+          opacity: { value: 0.6 }
+        },
+        interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
+        detectRetina: true
+      });
+    });
+  </script>
+</body>
 
 </html>

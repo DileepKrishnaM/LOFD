@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>All Lost & Found Items</title>
+  <title>Lost & Found</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="website icon" type="png" href="Logo2.png" />
 </head>
 <body>
   <div id="tsparticles"></div>
@@ -35,7 +36,16 @@
       tsParticles.load("tsparticles", {
         background: { color: "#0d0d2b" },
         fpsLimit: 60,
-        particles: { number: { value: 80 }, color: { value: ["#fff","#FFA726","#009688"] }, links: { enable:true, color:"#fff" } }
+        particles: {
+          number: { value: 80 },
+          color: { value: ["#ffffff", "#FFA726", "#009688"] },
+          links: { enable: true, distance: 140, color: "#fff", opacity: 0.25 },
+          move: { enable: true, speed: 1 },
+          size: { value: { min: 2, max: 4 } },
+          opacity: { value: 0.6 }
+        },
+        interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
+        detectRetina: true
       });
     });
   </script>

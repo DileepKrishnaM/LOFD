@@ -49,9 +49,9 @@ form p a {
 }
 
 .nav-right {
-  display: flex;
-  gap: 10px;
-} 
+	display: flex;
+	gap: 10px;
+}
 
 .navbar h1 {
 	font-size: 1.8rem;
@@ -81,7 +81,7 @@ form p a {
 }
 
 .btn-lost:hover {
-	background:teal;
+	background: teal;
 	transform: scale(1.05);
 }
 
@@ -89,6 +89,67 @@ form p a {
 	margin: 15px auto;
 	background: #444;
 	color: white;
+}
+
+.profile-img {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+
+.profile-container {
+	position: relative;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.username-display {
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+.profile-dropdown {
+	position: absolute;
+	right: 0;
+	top: 45px;
+	width: 150px;
+	background-color: white;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	padding: 0.5rem 0;
+	display: none;
+	z-index: 1001;
+	color: #e07a5f;
+}
+
+.dropdown-username {
+	padding: 0.5rem 1rem;
+	font-weight: bold;
+	text-align: center;
+	word-wrap: break-word;
+	max-width: 100%;
+}
+
+.dropdown-divider {
+	height: 1px;
+	background-color: #e7e7e7;
+	margin: 0.25rem 0;
+}
+
+.dropdown-item {
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+	text-align: center;
+}
+
+.dropdown-item:hover {
+	background-color: #f5f5f5;
+}
+
+.profile-dropdown.show {
+	display: block;
 }
 
 .btn-found:hover {

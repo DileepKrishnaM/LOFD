@@ -418,27 +418,14 @@
           return null;
         }
 
-        // Parse location name to get area and city
+        // Parse location name to get area only
         parseLocationName(placeName) {
           const parts = placeName.split(",").map((part) => part.trim());
-
           let area = "Unknown";
-          let city = "Unknown";
-
-          if (parts.length >= 2) {
+          if (parts.length >= 1) {
             area = parts[0];
-            city = parts[1];
-          } else if (parts.length === 1) {
-            area = parts[0];
-            // Try to guess if it's a city name
-            const cityKeywords = ["City", "Town", "Village", "District"];
-            if (cityKeywords.some((keyword) => parts[0].includes(keyword))) {
-              city = parts[0];
-              area = parts[0];
-            }
           }
-
-          return { area, city };
+          return { area };
         }
 
         // Reverse geocode coordinates
@@ -454,11 +441,10 @@
                 data.locality ||
                 data.city ||
                 data.principalSubdivision ||
-                "Unknown",
-              city: data.city || data.principalSubdivision || "Unknown",
+                "Unknown"
             };
           } catch (error) {
-            return { area: "Unknown", city: "Unknown" };
+            return { area: "Unknown" };
           }
         }
       }
@@ -475,7 +461,7 @@
           );
 
           // Update the card with extracted location
-          updateLocationDisplay(cardElement, location.area, location.city);
+          updateLocationDisplay(cardElement, location.area);
 
           return location;
         } catch (error) {
@@ -489,9 +475,13 @@
         // For the list.html structure, update the .item-location element
         const locationElement = cardElement.querySelector(".item-location");
 
+        // Decode any URL-encoded characters and replace '+' with space
+        const decode = (str) => decodeURIComponent(str.replace(/\+/g, ' '));
+        const displayArea = decode(area);
+
         if (locationElement) {
           // Keep the location icon class but update the text
-          locationElement.textContent = `${area},  ${city}`;
+          locationElement.textContent = `${displayArea}`;
         }
       }
 

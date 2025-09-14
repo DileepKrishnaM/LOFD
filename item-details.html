@@ -1,313 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Item Details - Lost & Found</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="website icon" type="png" href="./Logo2.png" />
-    <style>
-        .details-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+	<head>
+		<meta charset="UTF-8">
+		<title>Item Details - Lost & Found</title>
+		<link rel="stylesheet" href="style.css">
+		<link rel="website icon" type="png" href="./Logo2.png" />
+		<script type="module" src="profile.js"></script>
+		<style>
+			.details-container {
+				max-width: 900px;
+				margin: 0 auto;
+				padding: 20px;
+			}
 
-        .back-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: #FFA726;
-            border: 1px solid #FFA726;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            margin-bottom: 30px;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
+			.back-btn {
+				background: rgba(255, 255, 255, 0.1);
+				color: #FFA726;
+				border: 1px solid #FFA726;
+				padding: 10px 20px;
+				border-radius: 25px;
+				cursor: pointer;
+				margin-bottom: 30px;
+				text-decoration: none;
+				display: inline-block;
+				transition: all 0.3s ease;
+			}
 
-        .back-btn:hover {
-            background: #FFA726;
-            color: #fff;
-        }
+			.back-btn:hover {
+				background: #FFA726;
+				color: #fff;
+			}
 
-        .item-details-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
+			.item-details-card {
+				background: rgba(255, 255, 255, 0.1);
+				backdrop-filter: blur(10px);
+				border-radius: 20px;
+				overflow: hidden;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+			}
 
-        .item-header {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            padding: 40px;
-        }
+			.item-header {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 30px;
+				padding: 40px;
+			}
 
-        .item-image-container {
-            position: relative;
-        }
+			.item-image-container {
+				position: relative;
+			}
 
-        .item-image-large {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 15px;
-            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-        }
+			.item-image-large {
+				width: 100%;
+				height: 300px;
+				object-fit: cover;
+				border-radius: 15px;
+				background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: white;
+				font-size: 20px;
+			}
 
-        .item-image-large img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 15px;
-        }
+			.item-image-large img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: 15px;
+			}
 
-        .item-image-large.error {
-            background: linear-gradient(45deg, #ff7b7b 0%, #667eea 100%);
-        }
+			.item-image-large.error {
+				background: linear-gradient(45deg, #ff7b7b 0%, #667eea 100%);
+			}
 
-        .item-basic-info h1 {
-            color: #fff;
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            text-transform: capitalize;
-        }
+			.item-basic-info h1 {
+				color: #fff;
+				font-size: 2.5em;
+				margin-bottom: 15px;
+				text-transform: capitalize;
+			}
 
-        .item-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
+			.item-meta {
+				display: flex;
+				flex-direction: column;
+				gap: 15px;
+				margin-bottom: 30px;
+			}
 
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
+			.meta-item {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				padding: 12px 0;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			}
 
-        .meta-label {
-            font-weight: bold;
-            color: #FFA726;
-            min-width: 100px;
-        }
+			.meta-label {
+				font-weight: bold;
+				color: #FFA726;
+				min-width: 100px;
+			}
 
-        .meta-value {
-            color: #fff;
-        }
+			.meta-value {
+				color: #fff;
+			}
 
-        .category-badge {
-            background: linear-gradient(45deg, #FFA726, #FF7043);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 1em;
-            font-weight: bold;
-            display: inline-block;
-        }
+			.category-badge {
+				background: linear-gradient(45deg, #FFA726, #FF7043);
+				color: white;
+				padding: 8px 20px;
+				border-radius: 25px;
+				font-size: 1em;
+				font-weight: bold;
+				display: inline-block;
+			}
 
-        .status-badge {
-            background: linear-gradient(45deg, #ff7b7b, #ff9999);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 1em;
-            font-weight: bold;
-            display: inline-block;
-            text-transform: uppercase;
-        }
+			.status-badge {
+				background: linear-gradient(45deg, #ff7b7b, #ff9999);
+				color: white;
+				padding: 8px 20px;
+				border-radius: 25px;
+				font-size: 1em;
+				font-weight: bold;
+				display: inline-block;
+				text-transform: uppercase;
+			}
 
-        .item-description {
-            padding: 0 40px 40px;
-        }
+			.item-description {
+				padding: 0 40px 40px;
+			}
 
-        .description-title {
-            color: #FFA726;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-        }
+			.description-title {
+				color: #FFA726;
+				font-size: 1.5em;
+				margin-bottom: 15px;
+			}
 
-        .description-text {
-            color: #fff;
-            font-size: 1.1em;
-            line-height: 1.6;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 15px;
-            border-left: 4px solid #FFA726;
-        }
+			.description-text {
+				color: #fff;
+				font-size: 1.1em;
+				line-height: 1.6;
+				background: rgba(255, 255, 255, 0.05);
+				padding: 20px;
+				border-radius: 15px;
+				border-left: 4px solid #FFA726;
+			}
 
-        .contact-section {
-            background: rgba(255, 167, 38, 0.1);
-            padding: 30px 40px;
-            border-top: 1px solid rgba(255, 167, 38, 0.3);
-        }
+			.contact-section {
+				background: rgba(255, 167, 38, 0.1);
+				padding: 30px 40px;
+				border-top: 1px solid rgba(255, 167, 38, 0.3);
+			}
 
-        .contact-title {
-            color: #FFA726;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-        }
+			.contact-title {
+				color: #FFA726;
+				font-size: 1.5em;
+				margin-bottom: 15px;
+			}
 
-        .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+			.contact-info {
+				display: flex;
+				align-items: center;
+				gap: 15px;
+				margin-bottom: 20px;
+			}
 
-        .contact-btn {
-            background: linear-gradient(45deg, #FFA726, #FF7043);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
+			.contact-btn {
+				background: linear-gradient(45deg, #FFA726, #FF7043);
+				color: white;
+				border: none;
+				padding: 15px 30px;
+				border-radius: 25px;
+				cursor: pointer;
+				font-weight: bold;
+				font-size: 1.1em;
+				transition: all 0.3s ease;
+				text-decoration: none;
+				display: inline-block;
+			}
 
-        .contact-btn:hover {
-            background: linear-gradient(45deg, #FF7043, #FFA726);
-            transform: scale(1.05);
-        }
+			.contact-btn:hover {
+				background: linear-gradient(45deg, #FF7043, #FFA726);
+				transform: scale(1.05);
+			}
 
-        .loading, .error {
-            text-align: center;
-            padding: 60px 20px;
-            font-size: 1.3em;
-        }
+			.loading,
+			.error {
+				text-align: center;
+				padding: 60px 20px;
+				font-size: 1.3em;
+			}
 
-        .loading {
-            color: #fff;
-        }
+			.loading {
+				color: #fff;
+			}
 
-        .error {
-            color: #ff7b7b;
-            background: rgba(255, 123, 123, 0.1);
-            border-radius: 15px;
-            margin: 20px;
-        }
+			.error {
+				color: #ff7b7b;
+				background: rgba(255, 123, 123, 0.1);
+				border-radius: 15px;
+				margin: 20px;
+			}
 
-        @media (max-width: 768px) {
-            .item-header {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 20px;
-            }
-            
-            .item-basic-info h1 {
-                font-size: 2em;
-            }
-            
-            .item-description,
-            .contact-section {
-                padding: 20px;
-            }
-        }
-    </style>
-</head>
+			@media (max-width: 768px) {
+				.item-header {
+					grid-template-columns: 1fr;
+					gap: 20px;
+					padding: 20px;
+				}
 
-<body>
-    <div id="tsparticles"></div>
+				.item-basic-info h1 {
+					font-size: 2em;
+				}
 
-    <header class="navbar">
-        <a href="index.html">
-            <div class="brand"><img src="./Logo1.png" alt=""></div>
-        </a>
-        <div class="nav-right">
-            <button class="btn btn-browse" onclick="location.href='index.html'">Home</button>
-            <button class="btn btn-lost" onclick="location.href='report-lost.html'">Report Lost</button>
-            <!-- <button class="btn btn-found" onclick="location.href='report-found.html'">Report Found</button> -->
-            <button class="btn btn-browse" onclick="location.href='browse.html'">Browse</button>
-            <button class="btn btn-browse" onclick="location.href='login.html'">Login/Register</button>
-        </div>
-    </header>
+				.item-description,
+				.contact-section {
+					padding: 20px;
+				}
+			}
+		</style>
+	</head>
 
-    <div class="details-container">
-        <a href="list.html" class="back-btn">← Back to Browse</a>
+	<body>
+		<div id="tsparticles"></div>
+		<header class="navbar">
+			<a href="index.html">
+				<div class="brand"><img src="./Logo1.png" alt=""></div>
+			</a>
+			<div class="nav-right">
+				<button class="btn btn-browse" onclick="location.href='index.html'">Home</button>
+				<button class="btn btn-lost" onclick="location.href='report-lost.html'">Report Lost</button>
+				<!-- <button class="btn btn-found" onclick="location.href='report-found.html'">Report Found</button> -->
+				<button class="btn btn-browse" onclick="location.href='browse.html'">Browse</button>
+				<button class="btn btn-browse"  id='login-btn' onclick="location.href='login.html'">Login/Register</button>
+			</div>
+			<div class="profile-container">
+				<div class="username-display" id="headerUsername"></div>
+				<img src="./Profile.jpg" alt="Profile" class="profile-img" id="profileImg" />
+				<div class="profile-dropdown" id="profileDropdown">
+					<div class="dropdown-username" id="username" onclick="location.href='profile.html'">Loading...</div>
+					<div class="dropdown-divider"></div>
+					<div class="dropdown-item" id="resetPasswordBtn">Reset Password</div>
+					<div class="dropdown-divider"></div>
+					<div class="dropdown-item" id="signoutBtn">Sign In</div>
+				</div>
+			</div>
+		</header>
+		<div class="details-container">
+			<a href="list.html" class="back-btn">← Back to Browse</a>
+			<div id="loadingMessage" class="loading"> Loading item details... </div>
+			<div id="errorMessage" class="error" style="display: none;"> Item not found or failed to load. </div>
+			<div id="itemDetails" class="item-details-card" style="display: none;">
+				<!-- Item details will be populated here -->
+			</div>
+		</div>
+		<!-- Particles -->
+		<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				tsParticles.load("tsparticles", {
+					background: { color: "#0d0d2b" },
+					fpsLimit: 60,
+					particles: {
+						number: { value: 80 },
+						color: { value: ["#ffffff", "#FFA726", "#009688"] },
+						links: { enable: true, distance: 140, color: "#fff", opacity: 0.25 },
+						move: { enable: true, speed: 1 },
+						size: { value: { min: 2, max: 4 } },
+						opacity: { value: 0.6 }
+					},
+					interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
+					detectRetina: true
+				});
+			});
+		</script>
+		<!-- Firebase Integration -->
+		<script type="module">
+			import { getLostItemById } from './firebase.js';
 
-        <div id="loadingMessage" class="loading">
-            Loading item details...
-        </div>
+			// Get item ID from URL parameters
+			const urlParams = new URLSearchParams(window.location.search);
+			const itemId = urlParams.get('id');
 
-        <div id="errorMessage" class="error" style="display: none;">
-            Item not found or failed to load.
-        </div>
+			// DOM elements
+			const loadingMessage = document.getElementById('loadingMessage');
+			const errorMessage = document.getElementById('errorMessage');
+			const itemDetailsContainer = document.getElementById('itemDetails');
 
-        <div id="itemDetails" class="item-details-card" style="display: none;">
-            <!-- Item details will be populated here -->
-        </div>
-    </div>
+			// Format date function
+			function formatDate(dateString) {
+				const date = new Date(dateString);
+				return date.toLocaleDateString('en-US', {
+					weekday: 'long',
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric',
+					hour: '2-digit',
+					minute: '2-digit'
+				});
+			}
 
-    <!-- Particles -->
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            tsParticles.load("tsparticles", {
-                background: { color: "#0d0d2b" },
-                fpsLimit: 60,
-                particles: {
-                    number: { value: 80 },
-                    color: { value: ["#ffffff", "#FFA726", "#009688"] },
-                    links: { enable: true, distance: 140, color: "#fff", opacity: 0.25 },
-                    move: { enable: true, speed: 1 },
-                    size: { value: { min: 2, max: 4 } },
-                    opacity: { value: 0.6 }
-                },
-                interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
-                detectRetina: true
-            });
-        });
-    </script>
-
-    <!-- Firebase Integration -->
-    <script type="module">
-        import { getLostItemById } from './firebase.js';
-
-        // Get item ID from URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const itemId = urlParams.get('id');
-
-        // DOM elements
-        const loadingMessage = document.getElementById('loadingMessage');
-        const errorMessage = document.getElementById('errorMessage');
-        const itemDetailsContainer = document.getElementById('itemDetails');
-
-        // Format date function
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        }
-
-        // Create item details HTML
-        function createItemDetailsHTML(item) {
-            return `
+			// Create item details HTML
+			function createItemDetailsHTML(item) {
+				return `
                 <div class="item-header">
                     <div class="item-image-container">
                         <div class="item-image-large">
-                            <img src="${item.image}" alt="${item.itemName}" 
+                            <img src="${item.image}" alt="${item.itemName}"
                                  onerror="this.parentElement.innerHTML='<span>Image not available</span>'; this.parentElement.classList.add('error');">
                         </div>
                     </div>
@@ -346,56 +348,56 @@
                     <div class="contact-info">
                         <span style="color: #fff;">Contact the owner to help them recover their lost item</span>
                     </div>
-                    <a href="mailto:${item.contact}?subject=Found Your Lost Item: ${item.itemName}&body=Hi, I found your lost ${item.itemName} that you reported on Lost & Found. Please let me know how we can arrange for its return." 
+                    <a href="mailto:${item.contact}?subject=Found Your Lost Item: ${item.itemName}&body=Hi, I found your lost ${item.itemName} that you reported on Lost & Found. Please let me know how we can arrange for its return."
                        class="contact-btn">
                         📧 Contact Owner
                     </a>
                 </div>
             `;
-        }
+			}
 
-        // Load item details
-        async function loadItemDetails() {
-            if (!itemId) {
-                showError("No item ID provided");
-                return;
-            }
+			// Load item details
+			async function loadItemDetails() {
+				if (!itemId) {
+					showError("No item ID provided");
+					return;
+				}
 
-            try {
-                loadingMessage.style.display = 'block';
-                errorMessage.style.display = 'none';
-                itemDetailsContainer.style.display = 'none';
+				try {
+					loadingMessage.style.display = 'block';
+					errorMessage.style.display = 'none';
+					itemDetailsContainer.style.display = 'none';
 
-                const result = await getLostItemById(itemId);
+					const result = await getLostItemById(itemId);
 
-                if (result.success) {
-                    itemDetailsContainer.innerHTML = createItemDetailsHTML(result.data);
-                    itemDetailsContainer.style.display = 'block';
-                    
-                    // Update page title
-                    document.title = `${result.data.itemName} - Lost & Found`;
-                } else {
-                    showError(result.error || "Item not found");
-                }
-            } catch (error) {
-                console.error('Error loading item details:', error);
-                showError("Failed to load item details");
-            } finally {
-                loadingMessage.style.display = 'none';
-            }
-        }
+					if (result.success) {
+						itemDetailsContainer.innerHTML = createItemDetailsHTML(result.data);
+						itemDetailsContainer.style.display = 'block';
 
-        // Show error message
-        function showError(message) {
-            errorMessage.textContent = message;
-            errorMessage.style.display = 'block';
-            loadingMessage.style.display = 'none';
-            itemDetailsContainer.style.display = 'none';
-        }
+						// Update page title
+						document.title = `${result.data.itemName} - Lost & Found`;
+					} else {
+						showError(result.error || "Item not found");
+					}
+				} catch (error) {
+					console.error('Error loading item details:', error);
+					showError("Failed to load item details");
+				} finally {
+					loadingMessage.style.display = 'none';
+				}
+			}
 
-        // Initialize page
-        loadItemDetails();
-    </script>
-</body>
+			// Show error message
+			function showError(message) {
+				errorMessage.textContent = message;
+				errorMessage.style.display = 'block';
+				loadingMessage.style.display = 'none';
+				itemDetailsContainer.style.display = 'none';
+			}
+
+			// Initialize page
+			loadItemDetails();
+		</script>
+	</body>
 
 </html>

@@ -14,6 +14,7 @@ const resetPasswordBtn = document.getElementById("resetPasswordBtn");
 const auth = getAuth();
 
 loadUserInfo();
+import { getAllLostItems } from './firebase.js';
 
 // Toggle dropdown when profile image is clicked
 profileImg.addEventListener("click", function (e) {
@@ -92,7 +93,7 @@ async function loadUserInfo() {
 		} else {
 			// User not logged in, redirect to login page
 			signoutBtn.addEventListener("click", async function () {
-				window.location.href='./login.html'
+				window.location.href = './login.html'
 			});
 			usernameElement.textContent = "Guest";
 			headerUsernameElement.textContent = "Guest";

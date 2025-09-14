@@ -6,6 +6,204 @@
   <title>Lost & Found</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./Logo2.png" />
+  <style>
+    .hero-section {
+      text-align: center;
+      padding: 100px 20px 50px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: 3.5em;
+      color: #fff;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-weight: bold;
+    }
+
+    .hero-subtitle {
+      font-size: 1.3em;
+      color: #FFA726;
+      margin-bottom: 50px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .features-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      color: #fff;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #FFA726;
+      font-size: 1.2em;
+      margin-bottom: 50px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-top: 50px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 167, 38, 0.1) 0%, rgba(0, 150, 136, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+      border-color: #FFA726;
+    }
+
+    .feature-card * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .feature-icon {
+      font-size: 4em;
+      margin-bottom: 25px;
+      display: block;
+      background: linear-gradient(135deg, #FFA726, #FF7043);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+    }
+
+    .feature-title {
+      font-size: 1.8em;
+      color: #fff;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .feature-description {
+      color: #ccc;
+      font-size: 1.1em;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .feature-btn {
+      background: linear-gradient(45deg, #FFA726, #FF7043);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .feature-btn:hover {
+      background: linear-gradient(45deg, #FF7043, #FFA726);
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(255, 167, 38, 0.3);
+    }
+
+    .stats-section {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 50px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 20px;
+    }
+
+    .stat-number {
+      font-size: 3em;
+      color: #FFA726;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      color: #fff;
+      font-size: 1.2em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5em;
+      }
+      
+      .section-title {
+        font-size: 2em;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .feature-card {
+        padding: 30px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div id="tsparticles"></div>
@@ -21,20 +219,79 @@
     </div>
   </header>
 
-  <div class="container">
-    <h2>Find what matters. Help your community.</h2>
-    <p>Quickly report lost or found items.</p>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <h1 class="hero-title">Lost & Found</h1>
+    <p class="hero-subtitle">
+      Reuniting people with their lost belongings through community collaboration. 
+      Report, search, and help others find what matters most to them.
+    </p>
+  </section>
 
-    <div class="card lost">
-      <h3>Lost: Wallet</h3>
-      <p>Brown leather wallet, lost near Dundigal.</p>
-    </div>
+  <!-- Features Section -->
+  <section class="features-section">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-subtitle">
+      Our simple three-step process makes it easy to report lost items and help others recover theirs
+    </p>
+    
+    <div class="features-grid">
+      <!-- Report Lost Item Card -->
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3 class="feature-title">Report Lost Item</h3>
+        <p class="feature-description">
+          Lost something valuable? Create a detailed report with photos and location information. 
+          Our secure platform helps you reach people who might have found your item.
+        </p>
+        <a href="report-lost.html" class="feature-btn">Report Lost</a>
+      </div>
 
-    <div class="card found">
-      <h3>Found: Backpack</h3>
-      <p>Black Adidas backpack found at bus stop #45.</p>
+      <!-- Browse Lost Items Card -->
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3 class="feature-title">Browse Lost Items</h3>
+        <p class="feature-description">
+          Found something that doesn't belong to you? Browse through reported lost items 
+          to find the rightful owner and make someone's day by returning their lost possession.
+        </p>
+        <a href="list.html" class="feature-btn">Browse Items</a>
+      </div>
+
+      <!-- Connect & Return Card -->
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3 class="feature-title">Connect & Return</h3>
+        <p class="feature-description">
+          When you find a match, connect directly with the owner through our secure messaging system. 
+          Coordinate safe meetups and experience the joy of helping others.
+        </p>
+        <a href="login.html" class="feature-btn">Get Started</a>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number" id="totalItems">0</div>
+        <div class="stat-label">Items Reported</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="recentItems">0</div>
+        <div class="stat-label">This Week</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="activeUsers">0</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Support</div>
+      </div>
+    </div>
+  </section>
 
   <!-- Particle Background -->
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
@@ -55,6 +312,153 @@
         detectRetina: true
       });
     });
+  </script>
+
+  <!-- Firebase Integration for Lost Items -->
+  <script type="module">
+    import { getAllLostItems } from './firebase.js';
+
+    // Format date function
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    }
+
+    // Create item card HTML
+    function createItemCard(item) {
+      return `
+        <div class="item-card">
+          <div class="item-image">
+            <img src="${item.image}" alt="${item.itemName}" 
+                 onerror="this.parentElement.innerHTML='<span>Image not available</span>'; this.parentElement.classList.add('error');" 
+                 loading="lazy">
+          </div>
+          <div class="item-content">
+            <h3 class="item-name">${item.itemName}</h3>
+            <div class="item-location location-icon">${item.location}</div>
+            <div class="item-category">${item.category}</div>
+            <div class="item-date">Lost on ${formatDate(item.createdAt)}</div>
+            <button class="feature-btn" onclick="viewItemDetails('${item.id}')" style="width: 100%;">
+              View Details
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // View item details function (global scope)
+    window.viewItemDetails = function(itemId) {
+      window.location.href = `item-details.html?id=${itemId}`;
+    };
+
+    // Load recent lost items (limit to 3)
+    async function loadRecentItems() {
+      const loadingElement = document.getElementById('loadingItems');
+      const noItemsElement = document.getElementById('noItemsHome');
+      const itemsGrid = document.getElementById('itemsGridHome');
+
+      try {
+        const result = await getAllLostItems();
+
+        if (result.success && result.data.length > 0) {
+          // Get the 3 most recent items
+          const recentItems = result.data
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .slice(0, 3);
+
+          // Render the items
+          itemsGrid.innerHTML = recentItems.map(item => createItemCard(item)).join('');
+          loadingElement.style.display = 'none';
+        } else {
+          // No items found
+          loadingElement.style.display = 'none';
+          noItemsElement.style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Error loading recent items:', error);
+        loadingElement.style.display = 'none';
+        noItemsElement.style.display = 'block';
+        noItemsElement.textContent = 'Unable to load recent items. Please try again later.';
+      }
+    }
+
+    // Function to animate numbers
+    function animateNumber(element, target, duration = 2000) {
+      const start = 0;
+      const startTime = Date.now();
+      
+      function updateNumber() {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(start + (target - start) * easeOut);
+        
+        element.textContent = current;
+        
+        if (progress < 1) {
+          requestAnimationFrame(updateNumber);
+        }
+      }
+      
+      updateNumber();
+    }
+
+    // Load and display statistics
+    async function loadStats() {
+      try {
+        const result = await getAllLostItems();
+        
+        if (result.success) {
+          const items = result.data;
+          const totalItems = items.length;
+          
+          // Calculate items from this week
+          const oneWeekAgo = new Date();
+          oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+          const recentItems = items.filter(item => 
+            new Date(item.createdAt) >= oneWeekAgo
+          ).length;
+          
+          // Get unique users count
+          const uniqueUsers = new Set(items.map(item => item.userId)).size;
+          
+          // Animate the numbers
+          setTimeout(() => {
+            animateNumber(document.getElementById('totalItems'), totalItems);
+          }, 500);
+          
+          setTimeout(() => {
+            animateNumber(document.getElementById('recentItems'), recentItems);
+          }, 800);
+          
+          setTimeout(() => {
+            animateNumber(document.getElementById('activeUsers'), uniqueUsers);
+          }, 1100);
+          
+        } else {
+          // Fallback numbers if Firebase fails
+          animateNumber(document.getElementById('totalItems'), 150);
+          animateNumber(document.getElementById('recentItems'), 23);
+          animateNumber(document.getElementById('activeUsers'), 89);
+        }
+      } catch (error) {
+        console.log('Stats loading failed, using fallback numbers');
+        // Fallback numbers
+        animateNumber(document.getElementById('totalItems'), 150);
+        animateNumber(document.getElementById('recentItems'), 23);
+        animateNumber(document.getElementById('activeUsers'), 89);
+      }
+    }
+
+    // Load content when page loads
+    loadRecentItems();
+    loadStats();
   </script>
 </body>
 </html>

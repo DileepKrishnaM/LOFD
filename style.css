@@ -48,6 +48,11 @@ form p a {
 	border-radius: 50%;
 }
 
+.nav-right {
+  display: flex;
+  gap: 10px;
+} 
+
 .navbar h1 {
 	font-size: 1.8rem;
 	font-weight: bold;
@@ -71,12 +76,12 @@ form p a {
 
 .btn-lost {
 	background: #444;
-	margin: 15px auto;
+	/* margin: 15px auto; */
 	color: white;
 }
 
 .btn-lost:hover {
-	background: #FB8C00;
+	background:teal;
 	transform: scale(1.05);
 }
 
@@ -87,7 +92,7 @@ form p a {
 }
 
 .btn-found:hover {
-	background: #00796B;
+	background: teal;
 	transform: scale(1.05);
 }
 
@@ -97,8 +102,7 @@ form p a {
 }
 
 .btn-browse:hover {
-	background: white;
-	color: #444;
+	background: teal;
 	transform: scale(1.05);
 }
 

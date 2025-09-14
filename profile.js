@@ -83,7 +83,7 @@ async function loadUserInfo() {
 			loginBtn.style.display = 'none'
 			if (userInfo.success) {
 				// Display username in both places
-				usernameElement.textContent = userInfo.data.username;
+				usernameElement.textContent = "Profile";
 				headerUsernameElement.textContent = userInfo.data.username;
 			} else {
 				usernameElement.textContent = "User";

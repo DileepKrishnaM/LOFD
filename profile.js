@@ -82,7 +82,6 @@ async function loadUserInfo() {
 			signoutBtn.innerText = 'Sign out'
 			loginBtn.style.display = 'none'
 			if (userInfo.success) {
-				// Display username in both places
 				usernameElement.textContent = "Profile";
 				headerUsernameElement.textContent = userInfo.data.username;
 			} else {
@@ -95,7 +94,7 @@ async function loadUserInfo() {
 			signoutBtn.addEventListener("click", async function () {
 				window.location.href = './login.html'
 			});
-			usernameElement.textContent = "Guest";
+			usernameElement.textContent = "Profile";
 			headerUsernameElement.textContent = "Guest";
 		}
 	} catch (error) {

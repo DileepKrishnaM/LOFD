@@ -14,7 +14,9 @@ import {
   addDoc, 
   getDocs, 
   doc, 
-  getDoc, 
+  getDoc,
+  updateDoc,
+  deleteDoc,
   query, 
   where 
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
@@ -50,7 +52,7 @@ export const registerUser = async (email, password, username) => {
       uid: userCredential.user.uid,
       username: username,
       email: email,
-      emailVerified: false,
+      emailVerified: (!userCredential.user.emailVerified),
       createdAt: new Date().toISOString()
     });
     return { success: true, user: userCredential.user };  
@@ -200,6 +202,31 @@ export const getUserLostItems = async (userId) => {
   }
 };
 
+// Function to update a lost item document by ID
+export const updateLostItem = async (itemId, updatedData) => {
+  try {
+    const docRef = doc(db, "lostItems", itemId);
+    await updateDoc(docRef, {
+      ...updatedData,
+      updatedAt: new Date().toISOString()
+    });
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
+
+// Function to delete a lost item document by ID
+export const deleteLostItem = async (itemId) => {
+  try {
+    const docRef = doc(db, "lostItems", itemId);
+    await deleteDoc(docRef);
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
+
 export default { 
   auth, 
   db, 
@@ -213,5 +240,7 @@ export default {
   getLostItemById,
   getUserLostItems,
   resendVerificationEmail,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  updateLostItem,
+  deleteLostItem
 };
